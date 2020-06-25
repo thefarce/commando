@@ -1,6 +1,6 @@
-import Option   from '../src/option';
-import Program  from '../src/program';
-import commando from '../src/index';
+import Option   from '../src/option.js';
+import Program  from '../src/program.js';
+import commando from '../src/index.js';
 
 describe('@thefarce/commando root module', () => {
 

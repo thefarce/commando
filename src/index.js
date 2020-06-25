@@ -1,6 +1,6 @@
 
-import Program from './program';
-import Option  from './option';
+import Program from './program.js';
+import Option  from './option.js';
 
 export default {
   Program,
