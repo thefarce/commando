@@ -1,4 +1,5 @@
 import Option from '../src/option.js';
+import createOption from '../src/option/create-option.js';
 
 var JOINTS = [
   " ",
@@ -492,7 +493,7 @@ describe('Creating options', () => {
       let optionString = opts.options.join(joint);
 
       test(optionString, () => {
-        var option = new Option(optionString);
+        var option = createOption(optionString);
         for (var r in opts.results.raw) {
           expect(option.raw[r]).toBe(opts.results.raw[r]);
         }
@@ -511,7 +512,7 @@ describe('matching options', () => {
   OUTER: for (var i = 0; i < STRING_OPTS.length; i++) {
     let opts = STRING_OPTS[i];
     let optionString = opts.options.join(' ');
-    let option = new Option(optionString);
+    let option = createOption(optionString);
 
     describe(optionString, () => {
       if (opts.willMatch) {
@@ -546,7 +547,7 @@ describe('testing values', () => {
   OUTER: for (var i = 0; i < STRING_OPTS.length; i++) {
     let opts = STRING_OPTS[i];
     let optionString = opts.options.join(' ');
-    let option = new Option(optionString);
+    let option = createOption(optionString);
 
     if (opts.willMatch) {
       describe(optionString, () => {
