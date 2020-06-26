@@ -1,5 +1,5 @@
 
-import Option from './option.js';
+import createOption from './option/create-option.js';
 
 class Program {
 
@@ -8,7 +8,12 @@ class Program {
   }
 
   option (opt) {
-    this.options.push(new Option(opt));
+    var option = createOption(opt);
+
+    if (option) {
+      this.options.push(option);
+    }
+
     return this;
   }
 
