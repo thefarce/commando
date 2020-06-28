@@ -86,7 +86,7 @@ function parseStr (optionStr='') {
   }
 
   if (raw.enum) {
-    final.enum = raw.enum.replace(/[\[\]]/g,'').split('|');
+    final.enum = raw.enum.replace(/[\(\)]/g,'').split('|');
   }
 
   final.desc = raw.desc.replace(/[{}]/g,'');

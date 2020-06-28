@@ -6,6 +6,10 @@ class EnumerationOption extends Option {
   constructor (opts) {
     super(opts);
     this.type = "Enumeration";
+
+    if (this.default && !this.isEnumeratedValue(this.default)) {
+      throw(new Error("Provided default is not an enumerated value."));
+    }
   }
 
   matches (flag, value) {
@@ -14,8 +18,30 @@ class EnumerationOption extends Option {
     }
 
     [flag, value] = this.normalizeFlagAndValue(flag, value);
+
+    return this.isEnumeratedValue(value);
   }
 
+  isEnumeratedValue (value) {
+    for (var i = 0, len = this.enum.length; i < len; i++) {
+      if (value === this.enum[i]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  interpret (flag, value) {
+    if (!this.matches(flag, value) && !this.default) {
+    }
+    else if (value === undefined) {
+      this.value = this.default;
+    }
+    else {
+      this.value = value;
+    }
+    return this;
+  }
 }
 
 export default EnumerationOption;
