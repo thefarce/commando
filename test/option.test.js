@@ -271,7 +271,9 @@ var STRING_OPTS = [
   // default... in the same way a --color flag would negate the implicit
   // "false" default.
   {
-    options: ["-m","--monotone","{Boolean}","<color>", "[true]", 'Display in monotone'],
+    options: [
+      "-m","--monotone","{Boolean}","<color>", "[true]", 'Display in monotone'
+    ],
     results: {
       raw:   { 
         char    : '-m',
@@ -286,7 +288,7 @@ var STRING_OPTS = [
         long    : 'monotone',
         type    : 'Boolean',
         name    : 'color',
-        default : 'true',
+        default : true,
         desc    : 'Display in monotone',
       },
     },
@@ -315,7 +317,6 @@ var STRING_OPTS = [
       ['-m'         , "No"    , true ] ,
       ['--monotone' , "NO"    , true ] ,
       ['--monotone' , "n"     , true ] ,
-
     ],
     wontMatch: [
       '-f'          ,

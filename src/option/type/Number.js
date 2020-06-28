@@ -1,15 +1,23 @@
 
 import Option from '../BaseClass.js';
 
-function isNumeric(value) {
+function isNumeric (value) {
   return !isNaN(parseFloat(value)) && isFinite(value);
+}
+
+function coerceValue (value) {
+  return parseFloat(value);
 }
 
 class NumberOption extends Option {
 
-  constructor (str) {
-    super(str);
+  constructor (opts) {
+    super(opts);
     this.type = "Number";
+
+    if (this.default) {
+      this.default = parseFloat(this.default);
+    }
   }
 
 	matches (flag, value) {
@@ -22,6 +30,20 @@ class NumberOption extends Option {
     return isNumeric(value);
   }
 
+  interpret (flag, value) {
+    if (!this.matches(flag, value) && !this.default) {
+      return this;
+    }
+    else if (value === undefined) {
+      this.value = coerceValue(this.default);
+      return this;
+    }
+    else {
+      this.value = coerceValue(value);
+    }
+
+    return this;
+  }
 }
 
 export default NumberOption;

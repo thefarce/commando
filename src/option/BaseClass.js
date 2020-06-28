@@ -1,5 +1,12 @@
+import parseStr from './parse.js';
+
 class Option {
   constructor (params) {
+
+    if (typeof params === 'string') {
+      params = parseStr(params);
+    }
+
     this.raw = {
       source   : params.raw.source,
       char     : params.raw.char,
@@ -48,6 +55,17 @@ class Option {
     return this.flagMatches(flag);
   }
 
+  interpret (flag, value) {
+    if (this.matches(flag, value)) {
+      this.value = value || true;
+    }
+  }
+
+  description () {
+    var desc = `  ${this.raw.char} ${this.raw.long} [Default: ${this.default}] ${this.raw.desc}`;
+
+    return desc;
+  }
 }
 
 export default Option;

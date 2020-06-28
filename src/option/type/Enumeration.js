@@ -3,8 +3,8 @@ import Option from '../BaseClass.js';
 
 class EnumerationOption extends Option {
 
-  constructor (str) {
-    super(str);
+  constructor (opts) {
+    super(opts);
     this.type = "Enumeration";
   }
 
