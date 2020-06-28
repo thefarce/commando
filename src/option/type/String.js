@@ -27,6 +27,19 @@ class StringOption extends Option {
     return false;
 	}
 
+  interpret (flag, value) {
+
+    if (!this.matches(flag, value) && !this.default) {
+    }
+    else if (value === undefined) {
+      this.value = "" + this.default;
+    }
+    else {
+      this.value = "" + value;
+    }
+
+    return this;
+  }
 }
 
 export default StringOption;
