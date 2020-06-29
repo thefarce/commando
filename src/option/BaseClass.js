@@ -16,16 +16,25 @@ class Option {
       enum     : params.raw.enum,
       desc     : params.raw.desc,
       default  : params.raw.default,
+
+      // We store this for resetting.
+      final    : params.final,
     };
 
-    this.char     = params.final.char;
-    this.long     = params.final.long;
-    this.type     = params.final.type;
-    this.name     = params.final.name;
-    this.enum     = params.final.enum;
-    this.desc     = params.final.desc;
-    this.default  = params.final.default;
-    this.multiple = params.final.multiple;
+    this.reset();
+  }
+
+  reset () {
+    this.char     = this.raw.final.char;
+    this.long     = this.raw.final.long;
+    this.type     = this.raw.final.type;
+    this.name     = this.raw.final.name;
+    this.enum     = this.raw.final.enum;
+    this.desc     = this.raw.final.desc;
+    this.default  = this.raw.final.default;
+    this.multiple = this.raw.final.multiple;
+
+    this.registered = false;
   }
 
   flagMatches (flag) {

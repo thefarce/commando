@@ -35,9 +35,11 @@ class EnumerationOption extends Option {
     if (!this.matches(flag, value) && !this.default) {
     }
     else if (value === undefined) {
+      this.registered = true;
       this.value = this.default;
     }
     else {
+      this.registered = true;
       this.value = value;
     }
     return this;

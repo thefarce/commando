@@ -32,21 +32,93 @@ describe('class Program', () => {
     expect(program.options[1].type).toBe('Boolean');
   });
 
-/*
-  test('running a program', () => {
-    var program = new Program();
-    program
-      .option('-d --display <displayType>')
-      .option('-v --verbose {Boolean}')
-    ;
+  // These tests all use the same form.  Create the test with the options
+  // provided.  Run with the arguments provided.  Expect the resulting
+  // object.
+  var TESTS = [
 
-    program.run();
+    {
+      opt : ['-d --display <displayType>', '-v --verbose {Boolean}', ],
+      run : ['-d'],
+      get : {displayType: true},
+    }, {
+      opt : ['-d --display <displayType>', '-v --verbose {Boolean}', ],
+      run : ['-d', '--verbose'],
+      get : {displayType: true, verbose: true, },
+    }, {
+      opt : ['-d --display <displayType>', '-v --verbose {Boolean}', ],
+      run : ['-d', '--verbose', 'true'],
+      get : {displayType: true, verbose: true, },
+    }, {
+      opt : ['-d --display <displayType>', '-v --verbose {Boolean}', ],
+      run : ['-d', '--verbose', 'false'],
+      get : {displayType: true, verbose: false, },
+    }, {
+      opt : ['-d --display <displayType>', '-v --verbose {Boolean}', ],
+      run : ['-d', '--verbose', 'false'],
+      get : {displayType: true, verbose: false, },
+    }, {
+      opt : ['-d --display <displayType>', '-v --verbose {Boolean} [true]'],
+      run : ['-d', '--verbose'],
+      get : {displayType: true, verbose: false, },
+    }, {
+      opt : [
+        '-d --display <displayType>',
+        '-v --verbose {Boolean} [true]',
+        '-q --quiet {Boolean} <verbose>',
+      ],
+      run : ['-d', '--verbose'],
+      get : {displayType: true, verbose: false, },
+    }, {
+      opt : [
+        '-d --display <displayType>',
+        '-v --verbose {Boolean}',
+        '-q --quiet {Boolean} <verbose> [true]',
+      ],
+      run : ['-d', '-q'],
+      get : {displayType: true, verbose: false, },
+    },
+    // Try some number options.
+    {opt: ['-c --count {Number}'], run : [],            get : {}},
+    {opt: ['-c --count {Number}'], run : ['-c'],        get : {}},
+    {opt: ['-c --count {Number}'], run : ['-c', 9],     get : {count:9}},
+    {opt: ['-c --count {Number}'], run : ['-c', "9"],   get : {count:9}},
+    {opt: ['-c --count {Number}'], run : ['-c', "9.2"], get : {count:9.2}},
 
+    // Enumerated options
+    {opt: ['-t --type {Enum} (a|b|c)'], run : ['-t'], get : {}},
+    {opt: ['-t --type {Enum} (a|b|c)'], run : ['-t', 'b'], get : {type:'b'}},
+    /*
+    {
+      opt: ['-t --type {Enum+} (a|b|c)'],
+      run : ['-t', 'b'],
+      run : ['-t', 'c'],
+      get : {type:['b','c']}
+    },
+    */
+
+  ];
+
+  TESTS.forEach((TEST, i) => {
+    let desc = (i+1) + ") " + JSON.stringify(TEST).substring(0, 50) + " ...";
+    test(desc, () => {
+      let program = new Program();
+      let final = null;
+      TEST.opt.forEach(opt => {
+        program.option(opt);
+      });
+      program
+        .entry(function (handler) {
+          expect(handler.program).toBeInstanceOf(Program);
+          expect(handler.command).toMatchObject(TEST.get);
+        });
+      program.run([null, null, ...TEST.run]);
+    });
   });
-*/
 
 });
 
+/*
 describe('interpreting command args', () => {
   var program = new Program();
  
@@ -54,9 +126,6 @@ describe('interpreting command args', () => {
     expect(program.checkOption('-r')).toBe(false);
   });
 
-
-
-/*
   test('unrecognized params', () => {
     var args = program.interp([
       'path/to/node',
@@ -66,7 +135,7 @@ describe('interpreting command args', () => {
 
     expect(args.foo).toBe(true);
   });
-*/
 
 });
+*/
 

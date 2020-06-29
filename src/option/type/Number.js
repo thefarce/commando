@@ -34,9 +34,11 @@ class NumberOption extends Option {
     if (!this.matches(flag, value) && !this.default) {
     }
     else if (value === undefined) {
+      this.registered = true;
       this.value = coerceValue(this.default);
     }
     else {
+      this.registered = true;
       this.value = coerceValue(value);
     }
 

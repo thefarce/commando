@@ -10,6 +10,8 @@ import Option from '../BaseClass.js';
  * otherwise.
  */
 function _valueIsAcceptable (value) {
+  value = ("" + value).trim();
+
   return (
     value === "true"  || value === "t" ||
     value === "false" || value === "f" ||
@@ -21,6 +23,7 @@ function _valueIsAcceptable (value) {
 }
 
 function _interpretValue (value) {
+  value = ("" + value).trim();
 
   if (
     value === "true"  || value === "t" ||
@@ -48,10 +51,17 @@ class BooleanOption extends Option {
     super(opts);
     this.type = "Boolean";
 
-    if (this.default && _valueIsAcceptable(this.default.trim())) {
-      this.default = _interpretValue(this.default.trim());
+    if (this.default && _valueIsAcceptable(this.default)) {
+      this.default = _interpretValue(this.default);
     }
 
+  }
+
+  reset () {
+    super.reset();
+    if (this.default && _valueIsAcceptable(this.default)) {
+      this.default = _interpretValue(this.default);
+    }
   }
 
   matches (flag, value) {
@@ -79,15 +89,22 @@ class BooleanOption extends Option {
   }
 
   interpret (flag, value) {
+    // If the flag and value don't match, skip this-- the interpretation
+    // is that its meaningless.
     if (!this.matches(flag, value)) {
       return this;
     }
 
+    // If there's no value but the flag matches, then the value here is the
+    // inversion of the default.  This means a default false becomes true
+    // and a default true becomes false.
     if (value === undefined) {
       this.value = !this.default;
+      this.registered = true;
       return this;
     }
 
+    // Finally, if we have a value, let's interpret it as intended.
     let _val = (value || '').toLowerCase();
 
     if (
@@ -106,6 +123,7 @@ class BooleanOption extends Option {
       this.value = (this.default === true) ? false : true;
     }
 
+    this.registered = true;
     return this;
   }
 
