@@ -1,4 +1,3 @@
-import Option from '../src/option.js';
 import createOption from '../src/option/create-option.js';
 
 var JOINTS = [
@@ -218,6 +217,61 @@ var STRING_OPTS = [
         char    : '-c',
         long    : '--color',
         type    : '{Boolean}',
+        name    : '<color>',
+        default : '',
+        desc    : 'The color',
+      },
+      final: {
+        char    : 'c',
+        long    : 'color',
+        type    : 'Boolean',
+        name    : 'color',
+        default : null,
+        desc    : 'The color',
+      },
+    },
+    willMatch: [
+      ['-c'      , undefined , false] ,
+      ['--color' , undefined , false] ,
+
+      // Permitted truthy values
+      ['--color' , "true" , true ],
+      ['-c'      , "True" , true ],
+      ['--color' , "TRUE" , true ],
+      ['--color' , "TrUe" , true ],
+      ['-c'      , "t"    , true ],
+      ['--color' , "yes"  , true ],
+      ['--color' , "Yes"  , true ],
+      ['--color' , "YES"  , true ],
+      ['--color' , "Y"    , true ],
+
+      // Permitted falsey values
+      ['--color' , "false" , false ] ,
+      ['--color' , "False" , false ] ,
+      ['-c'      , "FALSE" , false ] ,
+      ['--color' , "FaLSe" , false ] ,
+      ['--color' , "f"     , false ] ,
+      ['--color' , "no"    , false ] ,
+      ['-c'      , "No"    , false ] ,
+      ['--color' , "NO"    , false ] ,
+      ['--color' , "n"     , false ] ,
+    ],
+    wontMatch: [
+      '-f',
+      '--squid',
+      ['--color', 'green'],
+      ['-c', 'orange'],
+    ],
+  },
+
+  // Test "Bool" as a synonym for "Boolean"
+  {
+    options: ["-c","--color","{Bool}","<color>", 'The color'],
+    results: {
+      raw:   { 
+        char    : '-c',
+        long    : '--color',
+        type    : '{Bool}',
         name    : '<color>',
         default : '',
         desc    : 'The color',

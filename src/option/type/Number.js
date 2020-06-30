@@ -35,11 +35,11 @@ class NumberOption extends Option {
     }
     else if (value === undefined) {
       this.registered = true;
-      this.value = coerceValue(this.default);
+      this.setValue(coerceValue(this.default));
     }
     else {
       this.registered = true;
-      this.value = coerceValue(value);
+      this.setValue(coerceValue(value));
     }
 
     return this;

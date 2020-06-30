@@ -34,7 +34,7 @@ describe("class NumberOption", () => {
     test(`"-c {Number}" evaluates ${value} to null`, () => {
       let opt = new NumberOption('-c {Number}');
       opt.interpret('-c', value);
-      expect(opt.value).toBe(undefined);
+      expect(opt.value).toBe(null);
     });
   });
 
@@ -60,4 +60,9 @@ describe("class NumberOption", () => {
     expect(opt.value).toBe(1.4);
   });
 
+  test('Check matching with the wrong flag', () => {
+    let opt = new NumberOption('-c {Number}');
+    opt.interpret('-f');
+    expect(opt.matches('-f')).toBe(false);
+  });
 });

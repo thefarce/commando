@@ -34,10 +34,20 @@ class Option {
     this.default  = this.raw.final.default;
     this.multiple = this.raw.final.multiple;
 
+    if (this.multiple) {
+      this.value = [];
+    }
+    else {
+      this.value    = null;
+    }
+
     this.registered = false;
   }
 
   flagMatches (flag) {
+    if (!flag) {
+      return false;
+    }
     let _flag = flag.trim();
 
     var charTrim = flag.replace(/^-/,  '');
@@ -52,10 +62,18 @@ class Option {
     return false;
   }
 
+  setValue (value) {
+    if (this.multiple) {
+      this.value.push(value);
+    } else {
+      this.value = value;
+    }
+  }
+
   // Guarantee we have a flag (string) and a value (string).
   normalizeFlagAndValue (flag, value) {
     if (flag && !value) {
-      [flag, value] = (flag||'').split('=')
+      [flag, value] = (''+flag).split('=')
     }
     return [flag, value || ''];
   }
@@ -68,6 +86,7 @@ class Option {
     if (this.matches(flag, value)) {
       this.value = value || true;
     }
+    return this;
   }
 
   description () {

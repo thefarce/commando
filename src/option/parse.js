@@ -5,6 +5,8 @@ function trimArg (str) {
 
 // Helper function to extract parts of the string.
 function getPart (str, pattern) {
+  str = '' + str;
+
   var component = null;
   str = ' ' + trimArg(str) + ' ';
 
@@ -18,7 +20,7 @@ function getPart (str, pattern) {
   }
 
   return [
-    str       ? trimArg(str)       : '',
+    trimArg(str),
     component ? trimArg(component) : ''
   ];
 }
@@ -45,6 +47,7 @@ function parseStr (optionStr='') {
     enum    : null,
     desc    : null,
     default : null,
+    multiple: null,
   }
 
   var _optStr = optionStr;
@@ -98,4 +101,9 @@ function parseStr (optionStr='') {
 }
 
 export default parseStr;
+export {
+  parseStr,
+  trimArg,
+  getPart,
+};
 

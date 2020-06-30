@@ -9,24 +9,8 @@ class Program {
 
   option (opt) {
     var option = createOption(opt);
-
-    if (option) {
-      this.options.push(option);
-    }
-
+    this.options.push(option);
     return this;
-  }
-
-  checkOption (str) {
-    for (var i = 0, len = this.options.length; i < len; i++) {
-      let opt = this.options[i];
-
-      if (opt.matches(str)) {
-        return true;
-      }
-    }
-
-    return false;
   }
 
   resetOptions () {
@@ -89,7 +73,7 @@ class Program {
 
           // If the next argument starts with - or -- then we know to treat
           // this as a flag with no arguments.
-          if (arg2 && arg2.matches && arg2.matches(/^-/)) {
+          if (arg2 && arg2.match && arg2.match(/^-/)) {
             opt.interpret(arg1);
             args.shift();
             i -= 1;
@@ -117,16 +101,7 @@ class Program {
     this.options.forEach(opt => {
       if (opt.registered) {
         let key = opt.name || opt.long || opt.short;
-        if (opt.multiple) {
-          if (!results.hasOwnProperty(key)) {
-            results[key] = [];
-          }
-          console.log(results);
-          results[key].push(opt.value);
-        }
-        else {
-          results[key] = opt.value;
-        }
+        results[key] = opt.value;
       }
     });
 

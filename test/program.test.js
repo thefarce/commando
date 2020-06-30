@@ -87,7 +87,11 @@ describe('class Program', () => {
 
     // Enumerated options
     {opt: ['-t --type {Enum} (a|b|c)'], run : ['-t'], get : {}},
-    {opt: ['-t --type {Enum} (a|b|c)'], run : ['-t', 'b'], get : {type:'b'}},
+
+    // 15.
+    {opt: ['-t --type {Enum}  (a|b|c)'], run : ['-t', 'b'], get : {type:'b'}},
+    {opt: ['-t --type {Enum+} (a|b|c)'], run : ['-t', 'b'], get : {type:['b']}},
+    {opt: ['-t --type {Enum+} (a|b|c)'], run : ['-t', 'b', '-t', 'a'], get : {}},
     /*
     {
       opt: ['-t --type {Enum+} (a|b|c)'],
@@ -118,24 +122,26 @@ describe('class Program', () => {
 
 });
 
-/*
-describe('interpreting command args', () => {
-  var program = new Program();
- 
-  test('checking params', () => {
-    expect(program.checkOption('-r')).toBe(false);
+describe("interpreting arguments", () => {
+  test("", () => {
+    let program = new Program();
+    program.option("-c");
+    program.interp([null, null, '-c', '-d']);
+    expect(program.options[0].value).toBe(true);
   });
-
-  test('unrecognized params', () => {
-    var args = program.interp([
-      'path/to/node',
-      'path/to/script',
-      '--foo',
-    ]);
-
-    expect(args.foo).toBe(true);
-  });
-
 });
-*/
+
+describe("interpreting process.argv by default", () => {
+  test("", () => {
+    let program = new Program();
+    program.option("-c");
+    program.entry(handler => {
+      expect(program.options.length).toBe(1);
+    });
+    program.run();
+  });
+});
+
+
+
 

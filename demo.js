@@ -1,15 +1,17 @@
 
 import Program from './src/program.js';
 
+
+//{opt: ['-t --type {Enum+} (a|b|c)'], run : ['--type', 'b', '-t', 'a'], get : {}},
+
 var head = new Program();
 head
-  .option("-v --verbose {Boolean} [false] Turn on verbose mode.")
-  .option("-q --quiet {Boolean} <verbose> [true] Use quiet mode.")
-  .entry(function (ctrl) {
-    console.log("CONTROL:", ctrl);
-  });
+  .option("-t --type {Enum+} (a|b|c)");
 
 head.run();
+
+console.log(head);
+
 
 //console.log(head.options[0].description());
 

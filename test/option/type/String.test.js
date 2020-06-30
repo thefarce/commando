@@ -32,7 +32,7 @@ describe("class StringOption", () => {
     test(`"-c {String}" evaluates ${value} to ${value}`, () => {
       let opt = new StringOption('-c {String}');
       opt.interpret('-c', value);
-      expect(opt.value).toBe(undefined);
+      expect(opt.value).toBe(null);
     });
   });
 

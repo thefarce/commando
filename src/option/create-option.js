@@ -24,7 +24,6 @@ function createOption (str) {
     default:
       return new BooleanOption(optStruct);
   }
-  return null;
 }
 
 export default createOption;

@@ -34,7 +34,7 @@ describe("class EnumerationOption", () => {
     test(`"-c {Enumeration} (a|b|c)" evaluates ${value} to null`, () => {
       let opt = new EnumerationOption('-c {Enumeration} (a|b|c)');
       opt.interpret('-c', value);
-      expect(opt.value).toBe(undefined);
+      expect(opt.value).toBe(null);
     });
   });
 
@@ -56,6 +56,12 @@ describe("class EnumerationOption", () => {
   test(`"c {Enumeration} [pigs] (a|b|c)" throws an error`, () => {
     expect(() => {new EnumerationOption('-c {Enumeration} [pigs] (a|b|c)')})
       .toThrow();
+  });
+
+  test('Check matching with the wrong flag', () => {
+    let opt = new EnumerationOption('-c {Enum}');
+    opt.interpret('-f');
+    expect(opt.matches('-f')).toBe(false);
   });
 
 });

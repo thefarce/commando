@@ -36,11 +36,11 @@ class EnumerationOption extends Option {
     }
     else if (value === undefined) {
       this.registered = true;
-      this.value = this.default;
+      this.setValue(this.default);
     }
     else {
       this.registered = true;
-      this.value = value;
+      this.setValue(value);
     }
     return this;
   }
