@@ -1,6 +1,6 @@
 {
   "name": "@thefarce/commando",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Command line processing that's intuitive.",
   "type":"module",
   "main": "./src/index.js",

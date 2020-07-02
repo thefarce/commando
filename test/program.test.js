@@ -126,7 +126,7 @@ describe("interpreting arguments", () => {
   test("", () => {
     let program = new Program();
     program.option("-c");
-    program.interp([null, null, '-c', '-d']);
+    program.interpret([null, null, '-c', '-d']);
     expect(program.options[0].value).toBe(true);
   });
 });

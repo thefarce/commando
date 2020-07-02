@@ -2,7 +2,6 @@ import parseStr from './parse.js';
 
 class Option {
   constructor (params) {
-
     if (typeof params === 'string') {
       params = parseStr(params);
     }
@@ -48,6 +47,7 @@ class Option {
     if (!flag) {
       return false;
     }
+    flag = '' + flag;
     let _flag = flag.trim();
 
     var charTrim = flag.replace(/^-/,  '');
