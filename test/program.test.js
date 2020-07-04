@@ -73,10 +73,16 @@ describe('class Program', () => {
       opt : [
         '-d --display <displayType>',
         '-v --verbose {Boolean}',
-        '-q --quiet {Boolean} <verbose> [true]',
+        '-q --quiet   {Boolean} <verbose> [true]',
       ],
       run : ['-d', '-q'],
-      get : {displayType: true, verbose: false, },
+      get : {
+        displayType : true,
+        verbose     : false,
+        $registered : {
+          verbose: false
+        }
+      },
     },
     // Try some number options.
     {opt: ['-c --count {Number}'], run : [],            get : {}},
@@ -114,7 +120,7 @@ describe('class Program', () => {
       program
         .entry(function (handler) {
           expect(handler.program).toBeInstanceOf(Program);
-          expect(handler.command).toMatchObject(TEST.get);
+          expect(handler.options).toMatchObject(TEST.get);
         });
       program.run([null, null, ...TEST.run]);
     });

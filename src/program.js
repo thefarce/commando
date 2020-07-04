@@ -38,7 +38,7 @@ class Program {
   }
 
   interpret (args) {
-    var results    = {};
+    var results = {"$registered":{}};
 
     // Check to see if we should shunt into a subcommand.
     if (this.subcommands[args[0]]) {
@@ -102,10 +102,16 @@ class Program {
     };
 
     this.options.forEach(opt => {
+      let key      = opt.name || opt.long || opt.short;
+
       if (opt.registered) {
-        let key = opt.name || opt.long || opt.short;
+        results.$registered[key] = opt.value;
         results[key] = opt.value;
       }
+      else if (typeof results[key] === 'undefined') {
+        results[key] = opt.value;
+      }
+
     });
 
     this.arguments = this.arguments.concat(args);
@@ -130,7 +136,7 @@ class Program {
 
     if (!this.hasRunSubcommand) {
       this.entry({
-        command: commandHash,
+        options: commandHash,
         program: this
       });
     }
