@@ -1,5 +1,8 @@
 import createOption from './option/create-option';
 
+/**
+ * Program.
+ */
 class Program {
   constructor (parent = null) {
     this.options = [];
@@ -9,6 +12,11 @@ class Program {
     this.hasRunSubcommand = false;
   }
 
+  /**
+   * option.
+   *
+   * @param {} opt
+   */
   option (opt) {
     const option = createOption(opt);
     this.options.push(option);

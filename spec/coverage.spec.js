@@ -2,7 +2,7 @@
 import createOption from '../src/option/create-option.js';
 import suite        from './suite-generator.js';
 
-const coverage = require('../coverage/coverage-summary.json');
+const coverage = require('../reports/coverage/coverage-summary.json');
 
 suite(['Version 1.0.0', 'Test Coverage'], () => {
 
