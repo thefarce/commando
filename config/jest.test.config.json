@@ -1,14 +1,21 @@
 {
-  "reporters": [
-    "default",
-    [
-      "../node_modules/jest-html-reporter", {
-        "boilerplate": "./spec/report/boilerplate.html",
-        "outputPath": "./reports/spec/report/index.html",
-        "pageTitle": "Specification Progress Report",
-        "sort": "titleAsc",
-        "useCssFile": "./spec/report/boilerplate.css"
-      }
-    ]
-  ]
+  "rootDir": "../",
+  "collectCoverageFrom": [
+    "./src/**/*.js"
+  ],
+  "coverageReporters": [
+    "json",
+    "json-summary",
+    "lcov",
+    "text",
+    "clover"
+  ],
+  "coverageThreshold": {
+    "global": {
+      "branches": 100,
+      "functions": 100,
+      "lines": 100,
+      "statements": 100
+    }
+  }
 }
