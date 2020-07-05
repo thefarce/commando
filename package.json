@@ -7,7 +7,7 @@
   "scripts": {
     "docs": "npx jsdoc --package ./package.json -c ./config/jsdoc.config.json -R README.md -t ./node_modules/ink-docstrap/template ./src",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --config=./config/jest.test.config.json ./test",
-    "test:coverage": "jest --coverage --config=./config/jest.test.config.json ./test && mv ./coverage ./reports/test-coverage",
+    "test:coverage": "jest --coverage --config=./config/jest.test.config.json ./test && rm -rf ./reports/test-coverage && mv ./coverage ./reports/test-coverage",
     "test:spec": "cross-env NODE_ENV=test jest --testTimeout=10000 --config=./config/jest.spec.config.json ./spec",
     "style": "npx eslint src -f ./node_modules/eslint-html-reporter/reporter.js -o ./reports/style/index.html",
     "style:fix": "npx eslint src -f ./node_modules/eslint-html-reporter/reporter.js -o ./reports/style/index.html --fix"
