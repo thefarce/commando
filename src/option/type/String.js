@@ -1,19 +1,15 @@
-
-import Option from '../BaseClass.js';
-import parseStr from '../parse.js';
+import Option from '../BaseClass';
 
 class StringOption extends Option {
-
   constructor (opts) {
-    if (typeof opts === "string") {
-      var params = parseStr(opts);
-    }
-
     super(opts);
-    this.type = "String";
+    this.type = 'String';
   }
 
-	matches (flag, value) {
+  matches (flagStr, valueStr) {
+    let flag  = flagStr;
+    let value = valueStr;
+
     if (!this.flagMatches(flag)) {
       return false;
     }
@@ -25,19 +21,21 @@ class StringOption extends Option {
     }
 
     return false;
-	}
+  }
 
   interpret (flag, value) {
-
     if (!this.matches(flag, value) && !this.default) {
-    }
-    else if (value === undefined) {
+      // If the flag and value don't match, and there's no default, then we
+      // don't want to do anything.  But we want to eliminate this option.
+      //
+      // We could write this with more involved but direct logic, but this
+      // has the greatest readability.
+    } else if (value === undefined) {
       this.registered = true;
-      this.setValue("" + this.default);
-    }
-    else {
+      this.setValue(`${this.default}`);
+    } else {
       this.registered = true;
-      this.setValue("" + value);
+      this.setValue(`${value}`);
     }
 
     return this;

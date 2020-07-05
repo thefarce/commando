@@ -42,8 +42,8 @@ describe("class BooleanOption", () => {
     opt.interpret('-c');
     expect(opt.value).toBe(false);
 
-    expect(opt.isValueAcceptable('piggly')).toBe(false);
-    expect(opt.interpretValue("piggly")).toBe(undefined);
+    expect(BooleanOption.isValueAcceptable('piggly')).toBe(false);
+    expect(BooleanOption.interpretValue("piggly")).toBe(undefined);
 
     opt.reset();
     expect(opt.interpret('-c', null).value).toBe(false);

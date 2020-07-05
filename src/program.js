@@ -1,69 +1,63 @@
-
-import createOption from './option/create-option.js';
+import createOption from './option/create-option';
 
 class Program {
-
-  constructor (parent=null) {
-    this.options          = [];
-    this.subcommands      = {};
-    this.arguments        = [];
-    this._parent          = parent;
+  constructor (parent = null) {
+    this.options = [];
+    this.subcommands = {};
+    this.arguments = [];
+    this.parentProgram = parent;
     this.hasRunSubcommand = false;
   }
 
   option (opt) {
-    var option = createOption(opt);
+    const option = createOption(opt);
     this.options.push(option);
     return this;
   }
 
-  subcommand (name, program=null) {
-    if (!program) {
-      program = new Program(this);
+  subcommand (name, program = null) {
+    let subcmd = program;
+    if (!subcmd) {
+      subcmd = new Program(this);
     }
 
-    program._parent = this;
-    this.subcommands[name] = program;
+    subcmd.parentProgram = this;
+    this.subcommands[name] = subcmd;
 
-    return program;
+    return subcmd;
   }
 
   parent () {
-    return this._parent;
+    return this.parentProgram;
   }
 
   resetOptions () {
-    this.options.forEach(opt => opt.reset());
+    this.options.forEach((opt) => opt.reset());
     return this;
   }
 
   interpret (args) {
-    var results = {"$registered":{}};
+    const results = { $registered: {} };
 
     // Check to see if we should shunt into a subcommand.
     if (this.subcommands[args[0]]) {
-      let subcmdName = args.shift();
+      const subcmdName = args.shift();
       this.subcommands[subcmdName].run(args);
       this.hasRunSubcommand = true;
       return results;
-    };
+    }
 
     // Loop through the available options.  For each option,
-    for (var o = 0; o < this.options.length; o++) {
-      let opt = this.options[o];
+    for (let o = 0; o < this.options.length; o++) {
+      const opt = this.options[o];
 
-      for (var i = 0; i < args.length; i++) {
-        let arg1 = args[i];
-        let arg2 = args[i+1];
+      for (let i = 0; i < args.length; i++) {
+        const arg1 = args[i];
+        const arg2 = args[i + 1];
 
-        // If there's no arg1 or arg2 (including just falsey versions of
-        // them... maybe this should change some time?
-        if (!arg1 && !arg2) {
-          continue;
-        }
-
-        // If the flag matches this option...
-        else if (opt.flagMatches(arg1)) {
+        // We need at least arg1, but can also accept an arg2.  Only
+        // continue if we have at least one.
+        if ((arg1 || arg2) && opt.flagMatches(arg1)) {
           // If the next argument starts with - or -- then we know to treat
           // this as a flag with no arguments.
           if (arg2 && arg2.match && arg2.match(/^-/)) {
@@ -71,7 +65,6 @@ class Program {
             args.shift();
             i -= 1;
           }
-
           // If we get here, there's an arg2, and it doesn't start with -
           // and it also works as an arg for the current option.
           else if (arg2 && opt.matches(arg1, arg2)) {
@@ -80,7 +73,6 @@ class Program {
             args.shift();
             i -= 2;
           }
-
           // If there is an arg1 and it matches this option, interpret it
           // alone.
           else if (arg1 && opt.matches(arg1)) {
@@ -98,20 +90,17 @@ class Program {
           }
         }
       }
+    }
 
-    };
-
-    this.options.forEach(opt => {
-      let key      = opt.name || opt.long || opt.short;
+    this.options.forEach((opt) => {
+      const key      = opt.name || opt.long || opt.short;
 
       if (opt.registered) {
         results.$registered[key] = opt.value;
         results[key] = opt.value;
-      }
-      else if (typeof results[key] === 'undefined') {
+      } else if (typeof results[key] === 'undefined') {
         results[key] = opt.value;
       }
-
     });
 
     this.arguments = this.arguments.concat(args);
@@ -124,24 +113,25 @@ class Program {
     return this;
   }
 
-  run (args) {
+  run (rawArgs) {
+    let args = rawArgs;
+
     if (!args) {
       args = process.argv;
-      var nodePath   = args.shift();
-      var scriptPath = args.shift();
+      this.nodePath = args.shift();
+      this.scriptPath = args.shift();
     }
 
     this.resetOptions();
-    let commandHash = this.interpret(args);
+    const commandHash = this.interpret(args);
 
     if (!this.hasRunSubcommand) {
       this.entry({
-        options: commandHash,
-        program: this
+        options : commandHash,
+        program : this,
       });
     }
   }
-
 }
 
 export default Program;

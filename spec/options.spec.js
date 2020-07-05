@@ -4,6 +4,16 @@ import suite        from './suite-generator.js';
 
 suite(['Version 1.0.0', 'Program', 'Options'], () => {
 
+  test('can be constructed with parametric objects', () => {
+    let opt = createOption({
+      char : 'o'      ,
+      long : 'option' ,
+      type : 'String' ,
+    });
+    opt.interpretValue('-o', 'myvalue');
+    expect(opt.value).toBe('myvalue');
+  });
+
   test('options can have multiple values', () => {
     let opt = createOption('-o --opt {Boolean+}');
     expect(opt.type).toBe('Boolean');

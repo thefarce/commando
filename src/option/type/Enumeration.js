@@ -1,18 +1,19 @@
-
-import Option from '../BaseClass.js';
+import Option from '../BaseClass';
 
 class EnumerationOption extends Option {
-
   constructor (opts) {
     super(opts);
-    this.type = "Enumeration";
+    this.type = 'Enumeration';
 
     if (this.default && !this.isEnumeratedValue(this.default)) {
-      throw(new Error("Provided default is not an enumerated value."));
+      throw (new Error('Provided default is not an enumerated value.'));
     }
   }
 
-  matches (flag, value) {
+  matches (flagStr, valueStr) {
+    let flag  = flagStr;
+    let value = valueStr;
+
     if (!this.flagMatches(flag)) {
       return false;
     }
@@ -23,7 +24,7 @@ class EnumerationOption extends Option {
   }
 
   isEnumeratedValue (value) {
-    for (var i = 0, len = this.enum.length; i < len; i++) {
+    for (let i = 0, len = this.enum.length; i < len; i++) {
       if (value === this.enum[i]) {
         return true;
       }
@@ -33,12 +34,12 @@ class EnumerationOption extends Option {
 
   interpret (flag, value) {
     if (!this.matches(flag, value) && !this.default) {
-    }
-    else if (value === undefined) {
+      // This is in each subclass.  That lets me know its a function that
+      // ought to be in the base class.  I should do that ...
+    } else if (value === undefined) {
       this.registered = true;
       this.setValue(this.default);
-    }
-    else {
+    } else {
       this.registered = true;
       this.setValue(value);
     }

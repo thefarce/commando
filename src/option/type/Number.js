@@ -1,8 +1,17 @@
+import Option from '../BaseClass';
 
-import Option from '../BaseClass.js';
+function isNumeric (raw) {
+  if (raw === null
+  || typeof raw === 'undefined'
+  || raw === false
+  || raw === true
+  || (typeof raw === 'string' && raw.match(/^\s*$/))
+  ) {
+    return false;
+  }
 
-function isNumeric (value) {
-  return !isNaN(parseFloat(value)) && isFinite(value);
+  const value = Number(raw);
+  return !Number.isNaN(value) && Number.isFinite(value);
 }
 
 function coerceValue (value) {
@@ -10,17 +19,19 @@ function coerceValue (value) {
 }
 
 class NumberOption extends Option {
-
   constructor (opts) {
     super(opts);
-    this.type = "Number";
+    this.type = 'Number';
 
     if (this.default) {
       this.default = parseFloat(this.default);
     }
   }
 
-	matches (flag, value) {
+  matches (flagStr, valueStr) {
+    let flag  = flagStr;
+    let value = valueStr;
+
     if (!this.flagMatches(flag)) {
       return false;
     }
@@ -32,12 +43,11 @@ class NumberOption extends Option {
 
   interpret (flag, value) {
     if (!this.matches(flag, value) && !this.default) {
-    }
-    else if (value === undefined) {
+      // This conditional needs to be moved to the base class.
+    } else if (value === undefined) {
       this.registered = true;
       this.setValue(coerceValue(this.default));
-    }
-    else {
+    } else {
       this.registered = true;
       this.setValue(coerceValue(value));
     }

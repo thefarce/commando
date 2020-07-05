@@ -1,7 +1,7 @@
-import Program from './program.js';
+import Program from './program';
 
 export default Program;
 
 export {
-  Program
-}
+  Program,
+};

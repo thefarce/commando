@@ -29,7 +29,7 @@ describe("class NumberOption", () => {
 
   // Non-numeric values
   [
-    'sihr', '', '29s', 's29', '92 9'
+    'sihr', '', '  ', '29s', 's29', '92 9'
   ].forEach(value => {
     test(`"-c {Number}" evaluates ${value} to null`, () => {
       let opt = new NumberOption('-c {Number}');

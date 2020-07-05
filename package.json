@@ -9,7 +9,8 @@
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000 ./test",
     "test:coverage": "jest --coverage ./test",
     "test:spec": "cross-env NODE_ENV=test jest --testTimeout=10000 --config=./spec/jest.config.json ./spec",
-    "style": "npx eslint src -f ./node_modules/eslint-html-reporter/reporter.js -o ./reports/style/index.html"
+    "style": "npx eslint src -f ./node_modules/eslint-html-reporter/reporter.js -o ./reports/style/index.html",
+    "style:fix": "npx eslint src -f ./node_modules/eslint-html-reporter/reporter.js -o ./reports/style/index.html --fix"
   },
   "repository": {
     "type": "git",
