@@ -8,7 +8,8 @@
     "docs": "npx jsdoc --package ./package.json -c ./jsdoc.config.json -R README.md -t ./node_modules/ink-docstrap/template ./src",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000 ./test",
     "test:coverage": "jest --coverage ./test",
-    "test:spec": "cross-env NODE_ENV=test jest --testTimeout=10000 --config=./spec/jest.config.json ./spec"
+    "test:spec": "cross-env NODE_ENV=test jest --testTimeout=10000 --config=./spec/jest.config.json ./spec",
+    "style": "npx eslint src -f ./node_modules/eslint-html-reporter/reporter.js -o ./reports/style/index.html"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "cross-env": "^7.0.2",
     "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-html-reporter": "^0.7.4",
     "eslint-plugin-import": "^2.22.0",
     "jest": "^26.0.1",
     "jest-html-reporter": "^3.1.3",

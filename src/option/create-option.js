@@ -1,22 +1,20 @@
-
-import BooleanOption     from './type/Boolean.js';
-import EnumerationOption from './type/Enumeration.js';
-import NumberOption      from './type/Number.js';
-import StringOption      from './type/String.js';
-
-import parseStr          from './parse.js';
+import BooleanOption     from './type/Boolean';
+import EnumerationOption from './type/Enumeration';
+import NumberOption      from './type/Number';
+import StringOption      from './type/String';
+import parseStr          from './parse';
 
 function createOption (str) {
-  var optStruct = parseStr(str);
+  const optStruct = parseStr(str);
   switch (optStruct.final.type) {
     case 'String':
-      return new StringOption     (optStruct);
+      return new StringOption(optStruct);
 
     case 'Number':
-      return new NumberOption     (optStruct);
+      return new NumberOption(optStruct);
 
-    case 'Enum': 
-    case 'Enumeration': 
+    case 'Enum':
+    case 'Enumeration':
       return new EnumerationOption(optStruct);
 
     case 'Bool':
@@ -27,4 +25,3 @@ function createOption (str) {
 }
 
 export default createOption;
-

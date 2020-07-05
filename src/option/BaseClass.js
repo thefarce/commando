@@ -1,62 +1,73 @@
-import parseStr from './parse.js';
+import parseStr from './parse';
 
 class Option {
-  constructor (params) {
+  constructor (options) {
+    let params = options;
     if (typeof params === 'string') {
       params = parseStr(params);
     }
 
     this.raw = {
-      source   : params.raw.source,
-      char     : params.raw.char,
-      long     : params.raw.long,
-      type     : params.raw.type,
-      name     : params.raw.name,
-      enum     : params.raw.enum,
-      desc     : params.raw.desc,
-      default  : params.raw.default,
+      source  : params.raw.source,
+      char    : params.raw.char,
+      long    : params.raw.long,
+      type    : params.raw.type,
+      name    : params.raw.name,
+      enum    : params.raw.enum,
+      desc    : params.raw.desc,
+      default : params.raw.default,
 
       // We store this for resetting.
-      final    : params.final,
+      final: params.final,
     };
 
     this.reset();
   }
 
   reset () {
-    this.char     = this.raw.final.char;
-    this.long     = this.raw.final.long;
-    this.type     = this.raw.final.type;
-    this.name     = this.raw.final.name;
-    this.enum     = this.raw.final.enum;
-    this.desc     = this.raw.final.desc;
-    this.default  = this.raw.final.default;
+    this.char = this.raw.final.char;
+    this.long = this.raw.final.long;
+    this.type = this.raw.final.type;
+    this.name = this.raw.final.name;
+    this.enum = this.raw.final.enum;
+    this.desc = this.raw.final.desc;
+    this.default = this.raw.final.default;
     this.multiple = this.raw.final.multiple;
 
     if (this.multiple) {
       this.value = [];
-    }
-    else {
-      this.value    = null;
+    } else {
+      this.value = null;
     }
 
     this.registered = false;
   }
 
-  flagMatches (flag) {
+  // Guarantee we have a flag (string) and a value (string).
+  normalizeFlagAndValue (flagStr, valueStr) {
+    let flag = flagStr;
+    let value = valueStr;
+
+    if (flag && !value) {
+      [flag, value] = (`${flag}`).split('=');
+    }
+
+    return [flag, value || ''];
+  }
+
+  flagMatches (input) {
+    let flag = input;
     if (!flag) {
       return false;
     }
-    flag = '' + flag;
-    let _flag = flag.trim();
+    flag = `${flag}`.trim();
+    const charTrim = flag.replace(/^-/, '');
+    const longTrim = flag.replace(/^--/, '');
 
-    var charTrim = flag.replace(/^-/,  '');
-    var longTrim = flag.replace(/^--/, '');
-
-    if ( this.raw.char === flag
+    if (this.raw.char === flag
       || this.raw.long === flag
-      || this.char     === charTrim
-      || this.long     === longTrim) {
+      || this.char === charTrim
+      || this.long === longTrim) {
       return true;
     }
     return false;
@@ -70,15 +81,7 @@ class Option {
     }
   }
 
-  // Guarantee we have a flag (string) and a value (string).
-  normalizeFlagAndValue (flag, value) {
-    if (flag && !value) {
-      [flag, value] = (''+flag).split('=')
-    }
-    return [flag, value || ''];
-  }
-
-  matches (flag, value) {
+  matches (flag) {
     return this.flagMatches(flag);
   }
 
@@ -90,7 +93,7 @@ class Option {
   }
 
   description () {
-    var desc = `  ${this.raw.char} ${this.raw.long} [Default: ${this.default}] ${this.raw.desc}`;
+    const desc = `  ${this.raw.char} ${this.raw.long} [Default: ${this.default}] ${this.raw.desc}`;
 
     return desc;
   }
