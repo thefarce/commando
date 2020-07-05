@@ -1,6 +1,6 @@
 <html><head><meta charset="utf-8"/><title>Specification Progress Report</title><style type="text/css">html,
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 1rem;
   margin: 0;
   padding: 0;
@@ -11,28 +11,27 @@ body {
   font-size: 0.85rem;
 }
 #jesthtml-content {
-  margin: 0 auto;
-  max-width: 70rem;
 }
 header {
   display: flex;
   align-items: center;
 }
+
 #title {
   margin: 0;
   flex-grow: 1;
 }
+
 #logo {
   height: 4rem;
 }
+
 #timestamp {
   color: #777;
   margin-top: 0.5rem;
 }
 
 #sorted-tests {
-  max-width: 80%;
-  margin: auto;
 }
 
 /** SUMMARY */
@@ -113,26 +112,6 @@ header {
   display: flex;
   justify-content: space-between;
 }
-.test-suitename {
-  width: 20%;
-  text-align: left;
-  font-weight: bold;
-  word-break: break-word;
-}
-.test-title {
-  width: 40%;
-  text-align: left;
-  font-style: italic;
-}
-.test-status {
-  width: 20%;
-  text-align: right;
-}
-.test-duration {
-  width: 10%;
-  text-align: right;
-  font-size: 0.75rem;
-}
 
 .failureMessages {
   padding: 0 1rem;
@@ -147,6 +126,62 @@ header {
   word-wrap: break-word;
 }
 
+/* Spec results table */
+table.spec-test-results {
+
+}
+
+table.spec-test-results tr th {
+  text-align: left;
+  background-color: #dddddd;
+  color: #777777;
+  font-style: italic;
+  font-size: 0.8em;
+  padding: 3px 5px;
+}
+
+table.spec-test-results tr td {
+  font-size: 0.8em;
+  padding: 3px 5px;
+}
+
+table.spec-test-results tr.spec-test:hover td {
+  background-color: #ffffaa;
+}
+
+table.spec-test-results tr.spec-test.passed {
+  background-color: #dff2bf;
+  color: #4f8a10;
+}
+
+table.spec-test-results tr.spec-test.failed {
+  background-color: #ffbaba;
+  color: #d8000c;
+}
+
+table.spec-test-results tr.spec-test.pending {
+  background-color: #ffdf61;
+  color: #9f6000;
+}
+
+table.spec-test-results tr .test-suite {
+}
+
+table.spec-test-results tr .test-suite {
+}
+
+table.spec-test-results tr .test-title {
+}
+
+table.spec-test-results tr .test-status {
+}
+
+table.spec-test-results tr .test-duration {
+  text-align: right;
+}
+
+
+/* Original test display */
 .suite-container {
   margin-bottom: 2rem;
   display: none;
@@ -280,6 +315,7 @@ header {
       let status   = document.createElement(type);
       let duration = document.createElement(type);
 
+
       row.appendChild(version);
       row.appendChild(suite);
       row.appendChild(title);
@@ -296,6 +332,7 @@ header {
         suite.textContent = test.suite;
       }
 
+      row     .classList.add("spec-test", test.status);
       version .classList.add("test-version");
       suite   .classList.add("test-suite");
       title   .classList.add("test-title");
@@ -318,6 +355,7 @@ header {
         duration : 'Duration',
       }, 'th'));
 
+      table.classList.add("spec-test-results");
       table.appendChild(thead);
       table.appendChild(tbody);
 
