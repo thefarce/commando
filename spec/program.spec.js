@@ -1,7 +1,7 @@
 import Program from '../src/index.js';
 import suite   from './suite-generator.js';
 
-suite(describe, ['Version 1.0.0', 'Program'], () => {
+suite(['Version 1.0.0', 'Program'], () => {
 
   test("construction permits assigning a parent program.", () => {
     let prog1 = new Program();
