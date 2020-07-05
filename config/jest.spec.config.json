@@ -1,0 +1,13 @@
+{
+  "reporters": [
+    "default",
+    [
+      "../node_modules/jest-html-reporter", {
+        "boilerplate": "./spec/report/boilerplate.html",
+        "outputPath": "./reports/spec/report/index.html",
+        "pageTitle": "Specification Progress Report",
+        "sort": "titleAsc"
+      }
+    ]
+  ]
+}

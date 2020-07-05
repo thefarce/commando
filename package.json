@@ -5,7 +5,7 @@
   "type": "module",
   "main": "./src/index.js",
   "scripts": {
-    "docs": "npx jsdoc --package ./package.json -c ./jsdoc.config.json -R README.md -t ./node_modules/ink-docstrap/template ./src",
+    "docs": "npx jsdoc --package ./package.json -c ./config/jsdoc.config.json -R README.md -t ./node_modules/ink-docstrap/template ./src",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000 ./test",
     "test:coverage": "jest --coverage ./test && mv ./coverage ./reports/test-coverage",
     "test:spec": "cross-env NODE_ENV=test jest --testTimeout=10000 --config=./spec/jest.config.json ./spec",
