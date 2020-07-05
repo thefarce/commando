@@ -294,6 +294,8 @@ table.spec-test-results tr .test-duration {
           :    (a.version > b.version)         ?  1
           :    (a.suiteString < b.suiteString) ? -1
           :    (a.suiteString > b.suiteString) ?  1
+          :    (a.status < b.status)           ? -1
+          :    (a.status > b.status)           ?  1
           :    (a.title < b.title)             ? -1
           :    (a.title > b.title)             ?  1
           :    (a.duration < b.duration)       ? -1
