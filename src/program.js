@@ -1,4 +1,4 @@
-import createOption from './option/create-option';
+import createOption from './option/create-option.js';
 
 /**
  * Program.

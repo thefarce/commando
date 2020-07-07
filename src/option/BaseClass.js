@@ -1,4 +1,4 @@
-import parseStr from './parse';
+import parseStr from './parse.js';
 
 class Option {
   constructor (options) {

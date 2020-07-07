@@ -1,8 +1,8 @@
-import BooleanOption     from './type/Boolean';
-import EnumerationOption from './type/Enumeration';
-import NumberOption      from './type/Number';
-import StringOption      from './type/String';
-import parseStr          from './parse';
+import BooleanOption     from './type/Boolean.js';
+import EnumerationOption from './type/Enumeration.js';
+import NumberOption      from './type/Number.js';
+import StringOption      from './type/String.js';
+import parseStr          from './parse.js';
 
 function createOption (str) {
   const optStruct = parseStr(str);

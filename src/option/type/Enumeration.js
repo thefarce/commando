@@ -1,4 +1,4 @@
-import Option from '../BaseClass';
+import Option from '../BaseClass.js';
 
 class EnumerationOption extends Option {
   constructor (opts) {
