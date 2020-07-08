@@ -2,4 +2,51 @@
 layout: default
 ---
 
-The Farce
+@thefarce/Commando is an intuitive command-line-argument handler for Node
+js.  Unlike other modules, writing a command-line program with
+@thefarce/commando has almost no learning curve, and is extremely flexible.
+
+Let's look at an example.  This program will read command line args.
+
+<code>
+// my-program.js
+import Program from '@thefarce/commando';
+
+let program = new Program();
+program
+  .option('-v --verbose          Whether to be verbose.')
+  .option('-c --config  {String} A path to the config file.')
+
+  .entry(cmd => {
+    let config = {};
+
+    if (cmd.options.verbose) {
+      console.log("Verbose flag enabled.");
+    }
+
+    if (cmd.options.config) {
+      console.log(`Loading configuration from ${cmd.options.config} ...`});
+      config = require(cmd.options.config);
+    }
+
+    console.log("All done.");
+  });
+</code>
+
+There are a few things to notice in this:
+
+<ul>
+  <li>
+    Options are described flexibly, in a common-sense way.
+  </li>
+  <li>
+    You can specify that an option (in this case --config) takes a {String}
+    argument.
+  </li>
+  <li>
+    The <code>entry()</code> method specifies entry point to the program.
+  </li>
+</ul>
+
+
+
