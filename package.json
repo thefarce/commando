@@ -1,7 +1,7 @@
 {
   "name": "@thefarce/commando",
-  "version": "0.2.0",
-  "homepage":"https://thefarce.github.io/commando",
+  "version": "0.3.0",
+  "homepage": "https://thefarce.github.io/commando",
   "description": "Command line processing that's intuitive.",
   "type": "module",
   "main": "./src/index.js",
@@ -9,7 +9,7 @@
     "clean": "rimraf ./reports",
     "docs:build": "npm run docs:build:jsdoc && npm run docs:build:site",
     "docs:build:jsdoc": "npx jsdoc --package ./package.json --configure ./config/jsdoc.config.json --readme README.md --template ./node_modules/ink-docstrap/template --destination ./pub ./src",
-    "docs:build:site":"npm run --prefix ./pub build",
+    "docs:build:site": "npm run --prefix ./pub build",
     "docs:deploy": "npm run docs:build && gh-pages -d pub/build",
     "style": "    npx eslint src --config ./config/eslint.config.cjs -f ./node_modules/eslint-html-reporter/reporter.js -o ./reports/style/index.html; echo ''",
     "style:fix": "npx eslint src --config ./config/eslint.config.cjs -f ./node_modules/eslint-html-reporter/reporter.js -o ./reports/style/index.html --fix; echo ''",
