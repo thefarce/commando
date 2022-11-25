@@ -1,26 +1,14 @@
 {
   "files": {
-    "main.css": "/commando/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/commando/static/js/main.da7dca4d.chunk.js",
-    "main.js.map": "/commando/static/js/main.da7dca4d.chunk.js.map",
-    "runtime-main.js": "/commando/static/js/runtime-main.a094cb1a.js",
-    "runtime-main.js.map": "/commando/static/js/runtime-main.a094cb1a.js.map",
-    "static/css/2.72d22ee7.chunk.css": "/commando/static/css/2.72d22ee7.chunk.css",
-    "static/js/2.f031890c.chunk.js": "/commando/static/js/2.f031890c.chunk.js",
-    "static/js/2.f031890c.chunk.js.map": "/commando/static/js/2.f031890c.chunk.js.map",
+    "main.css": "/commando/static/css/main.073c9b0a.css",
+    "main.js": "/commando/static/js/main.f18b8381.js",
+    "static/media/logo.svg": "/commando/static/media/logo.103b5fa18196d5665a7e12318285c916.svg",
     "index.html": "/commando/index.html",
-    "precache-manifest.834483210540c15e5285491a39c86826.js": "/commando/precache-manifest.834483210540c15e5285491a39c86826.js",
-    "service-worker.js": "/commando/service-worker.js",
-    "static/css/2.72d22ee7.chunk.css.map": "/commando/static/css/2.72d22ee7.chunk.css.map",
-    "static/css/main.5ecd60fb.chunk.css.map": "/commando/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.f031890c.chunk.js.LICENSE.txt": "/commando/static/js/2.f031890c.chunk.js.LICENSE.txt",
-    "static/media/thefarce-net-code.png": "/commando/static/media/thefarce-net-code.ee933830.png"
+    "main.073c9b0a.css.map": "/commando/static/css/main.073c9b0a.css.map",
+    "main.f18b8381.js.map": "/commando/static/js/main.f18b8381.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.a094cb1a.js",
-    "static/css/2.72d22ee7.chunk.css",
-    "static/js/2.f031890c.chunk.js",
-    "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.da7dca4d.chunk.js"
+    "static/css/main.073c9b0a.css",
+    "static/js/main.f18b8381.js"
   ]
 }
