@@ -1,4 +1,3 @@
-
 import createOption from '../src/option/create-option.js';
 import suite        from './suite-generator.js';
 

@@ -1,5 +1,3 @@
-
-
 /*
 suite(describe, ['Version 1.0.0', 'Program', 'Options'], () => {
   test(...);

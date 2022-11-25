@@ -5,10 +5,10 @@ import createOption from './option/create-option.js';
  */
 class Program {
   constructor (parent = null) {
-    this.options = [];
-    this.subcommands = {};
-    this.arguments = [];
-    this.parentProgram = parent;
+    this.options          = [];
+    this.subcommands      = {};
+    this.arguments        = [];
+    this.parentProgram    = parent;
     this.hasRunSubcommand = false;
   }
 
@@ -44,6 +44,10 @@ class Program {
     return this;
   }
 
+  /**
+   * Interprets program's specification.  This includes 
+   *
+   */
   interpret (args) {
     const results = { $registered: {} };
 
@@ -55,10 +59,18 @@ class Program {
       return results;
     }
 
-    // Loop through the available options.  For each option,
+    // Loop through the available options.  For each option...
     for (let o = 0; o < this.options.length; o++) {
       const opt = this.options[o];
 
+      // We're looping through the arguments, taking in the next
+      // argument and looking forward at the following argument.  
+      //
+      // By capturing both with a look-ahead, we can determine if the
+      // following argument is related to the current argument or not.  If
+      // so, we can consume it and skip over interpreting it here.  If not,
+      // we process the current argument (arg1) and when we're done, step
+      // forward one argument.
       for (let i = 0; i < args.length; i++) {
         const arg1 = args[i];
         const arg2 = args[i + 1];
@@ -101,7 +113,7 @@ class Program {
     }
 
     this.options.forEach((opt) => {
-      const key      = opt.name || opt.long || opt.short;
+      const key = opt.name || opt.long || opt.short;
 
       if (opt.registered) {
         results.$registered[key] = opt.value;
